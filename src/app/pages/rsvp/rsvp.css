@@ -1,18 +1,18 @@
 :host {
-  --paper: #f7f8f3;
-  --ink: #181414;
-  --muted: #5a4a48;
-  --blush: #f1a29d;
-  --coral: #ee7d79;
-  --vermilion: #e45237;
-  --error: #b3361f;
-  --line: #cfc8c4;
+  --navy: #1F354D;
+  --salmon: #E06D60;
+  --cream: #F8F8F2;
+  --muted: #5C6B7A;
+  --tint: #FBF1EF;        /* Soft salmon-tinted cream for notes & selected options */
+  --error: #B3361F;
+  --line: rgba(31, 53, 77, 0.22);
+
   --script: 'Citadel Script', 'Pinyon Script', cursive;
   --serif: 'Coldiac', 'Cormorant SC', Georgia, serif;
 
   display: block;
   min-height: 100vh;
-  color: var(--ink);
+  color: var(--navy);
   font-family: var(--serif);
   font-size: 1.1rem;
   line-height: 1.6;
@@ -20,36 +20,52 @@
 
 h1, p { margin: 0; }
 
+/* Salmon Envelope Background with Navy Polka Dots */
 .dots {
-  background-color: var(--blush);
+  background-color: var(--salmon);
   background-image:
-    radial-gradient(circle, #000 0 9px, transparent 9.5px),
-    radial-gradient(circle, #000 0 9px, transparent 9.5px);
-  background-size: 100px 100px;
-  background-position: 0 0, 50px 50px;
+    radial-gradient(circle, var(--navy) 0 8px, transparent 8.5px),
+    radial-gradient(circle, var(--navy) 0 8px, transparent 8.5px);
+  background-size: 96px 96px;
+  background-position: 0 0, 48px 48px;
 }
 
-.page { min-height: 100vh; padding: 2rem 1.5rem 3rem; }
+.page { min-height: 100vh; padding: 2.25rem 1.5rem 3.5rem; }
 
+/* Cream Info/RSVP Card */
 .sheet {
   max-width: 640px; margin: 0 auto;
-  background: var(--paper); border-radius: 6px;
+  background: var(--cream);
+  border-radius: 6px;
+  border-top: 5px solid var(--navy);
   padding: clamp(1.75rem, 5vw, 3rem);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 14px 32px rgba(31, 53, 77, 0.2);
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
-.back { color: var(--ink); letter-spacing: 0.06em; }
-.back:hover { color: var(--vermilion); }
+.back {
+  display: inline-block;
+  color: var(--navy);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  border-bottom: 1.5px solid rgba(31, 53, 77, 0.35);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.back:hover { color: var(--salmon); border-color: var(--salmon); }
 
 h1 {
   margin-top: 1.25rem;
   font-family: var(--script); font-weight: 400;
-  font-size: clamp(3.4rem, 10vw, 5rem); line-height: 1.1; color: var(--vermilion);
+  font-size: clamp(3.4rem, 10vw, 5rem); line-height: 1.1;
+  color: var(--salmon);
 }
-.intro { margin-top: 0.5rem; letter-spacing: 0.03em; max-width: 34rem; }
+.intro { margin-top: 0.5rem; letter-spacing: 0.03em; max-width: 34rem; color: var(--navy); }
 
 a:focus-visible, button:focus-visible {
-  outline: 3px solid var(--ink);
+  outline: 3px solid var(--navy);
   outline-offset: 3px;
   border-radius: 6px;
 }
@@ -58,114 +74,142 @@ a:focus-visible, button:focus-visible {
 .field { margin: 2rem 0 0; padding: 0; border: 0; min-width: 0; }
 .label {
   display: block; padding: 0; margin-bottom: 0.3rem;
-  font-size: 1.3rem; font-weight: 600; letter-spacing: 0.05em; line-height: 1.3;
+  font-size: 1.25rem; font-weight: 600; letter-spacing: 0.05em; line-height: 1.3;
+  color: var(--navy);
 }
 .optional { font-size: 1rem; font-weight: 400; color: var(--muted); letter-spacing: 0.02em; }
-.hint { margin-bottom: 0.75rem; color: var(--muted); font-size: 1rem; }
+.hint { margin-bottom: 0.75rem; color: var(--muted); font-size: 0.98rem; }
 
 input[type='text'],
 textarea {
   width: 100%; box-sizing: border-box;
   padding: 0.8rem 1rem;
-  font: inherit; color: var(--ink);
-  background: #fff; border: 2px solid var(--ink); border-radius: 6px;
+  font: inherit; color: var(--navy);
+  background: #ffffff;
+  border: 1.5px solid var(--navy);
+  border-radius: 6px;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 textarea { resize: vertical; min-height: 5.5rem; }
 input[type='text']:focus-visible,
-textarea:focus-visible { outline: 3px solid var(--vermilion); outline-offset: 2px; }
+textarea:focus-visible {
+  outline: 3px solid var(--salmon);
+  outline-offset: 2px;
+  border-color: var(--salmon);
+}
 input[aria-invalid='true'] { border-color: var(--error); }
 
-.error { margin-top: 0.6rem; color: var(--error); font-weight: 600; font-size: 1rem; }
+.error { margin-top: 0.6rem; color: var(--error); font-weight: 600; font-size: 0.98rem; }
 
 /* Number of people */
 .stepper-row { display: flex; align-items: center; gap: 1rem; margin: 0.5rem 0 1rem; }
 .stepper { display: inline-flex; align-items: center; gap: 0.75rem; }
 .step {
-  width: 48px; height: 48px; border-radius: 50%;
+  width: 46px; height: 46px; border-radius: 50%;
   display: grid; place-items: center; padding: 0;
-  font: inherit; font-size: 1.7rem; line-height: 1; color: var(--ink);
-  background: transparent; border: 2px solid var(--ink); cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  font: inherit; font-size: 1.65rem; line-height: 1; color: var(--navy);
+  background: #ffffff; border: 1.5px solid var(--navy); cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
-.step:hover:not(:disabled) { background: var(--ink); color: var(--paper); }
+.step:hover:not(:disabled) { background: var(--navy); color: var(--cream); }
 .step:disabled { opacity: 0.35; cursor: not-allowed; }
 .count {
   min-width: 3.2rem; text-align: center;
-  font-family: var(--script); font-size: 3.8rem; line-height: 1; color: var(--vermilion);
+  font-family: var(--script); font-size: 3.8rem; line-height: 1;
+  color: var(--salmon);
 }
-.count-label { font-size: 1.2rem; letter-spacing: 0.04em; }
+.count-label { font-size: 1.15rem; letter-spacing: 0.04em; color: var(--navy); }
 
 .note {
-  padding: 0.85rem 1rem; font-size: 1rem; color: var(--ink);
-  background: #fdf0ee; border-left: 4px solid var(--coral); border-radius: 0 6px 6px 0;
+  padding: 0.85rem 1rem; font-size: 0.98rem; color: var(--navy);
+  background: var(--tint);
+  border-left: 4px solid var(--salmon);
+  border-radius: 0 6px 6px 0;
 }
 
 /* Names of the other people */
 .people { margin-top: 1.5rem; }
 .person { margin-top: 0.9rem; }
-.sublabel { display: block; margin-bottom: 0.25rem; font-weight: 600; letter-spacing: 0.04em; }
+.sublabel { display: block; margin-bottom: 0.25rem; font-weight: 600; letter-spacing: 0.04em; color: var(--navy); }
 
-/* Where: selectable cards */
+/* Attendance selectable cards */
 .options { display: grid; gap: 0.75rem; margin-top: 0.75rem; }
 .option {
   position: relative; display: flex; align-items: flex-start; gap: 0.9rem;
   padding: 1rem 1.1rem; cursor: pointer;
-  background: #fff; border: 2px solid var(--line); border-radius: 6px;
-  transition: border-color 0.2s, background 0.2s;
+  background: #ffffff; border: 1.5px solid var(--line); border-radius: 6px;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
 }
-.option:hover { border-color: var(--ink); }
+.option:hover { border-color: var(--navy); }
 .option input { position: absolute; opacity: 0; pointer-events: none; }
 
 .mark {
-  flex: none; width: 24px; height: 24px; margin-top: 0.15rem;
-  border: 2px solid var(--ink); border-radius: 50%; background: #fff;
+  flex: none; width: 22px; height: 22px; margin-top: 0.2rem;
+  border: 1.5px solid var(--navy); border-radius: 50%; background: #ffffff;
   display: grid; place-items: center;
 }
+.option input:checked ~ .mark { border-color: var(--salmon); }
 .option input:checked ~ .mark::after {
-  content: ''; width: 12px; height: 12px; border-radius: 50%; background: var(--vermilion);
+  content: ''; width: 11px; height: 11px; border-radius: 50%; background: var(--salmon);
 }
 
 .option:has(input:checked) {
-  border-color: var(--vermilion); background: #fdf0ee; box-shadow: 0 0 0 1px var(--vermilion);
+  border-color: var(--salmon);
+  background: var(--tint);
+  box-shadow: 0 0 0 1px var(--salmon);
 }
-.option:has(input:focus-visible) { outline: 3px solid var(--ink); outline-offset: 3px; }
+.option:has(input:focus-visible) { outline: 3px solid var(--navy); outline-offset: 3px; }
 
 .option-body { display: grid; }
-.option-title { font-size: 1.25rem; font-weight: 600; letter-spacing: 0.04em; line-height: 1.3; }
-.option-detail { color: var(--muted); font-size: 1rem; line-height: 1.4; }
+.option-title { font-size: 1.2rem; font-weight: 600; letter-spacing: 0.04em; line-height: 1.3; color: var(--navy); }
+.option-detail { color: var(--muted); font-size: 0.98rem; line-height: 1.4; }
 
 /* Submit & Feedback states */
 .submit {
   display: inline-block; margin-top: 2.25rem; padding: 0.85rem 2.4rem;
-  font: inherit; font-weight: 600; font-size: 1.15rem; letter-spacing: 0.08em;
-  color: var(--paper); background: var(--ink);
+  font: inherit; font-weight: 600; font-size: 1.1rem; letter-spacing: 0.08em;
+  color: var(--cream); background: var(--navy);
   border: 0; border-radius: 999px; cursor: pointer;
   transition: background 0.2s;
 }
-.submit:hover:not(:disabled) { background: var(--vermilion); }
+.submit:hover:not(:disabled) { background: var(--salmon); }
 .submit:disabled { opacity: 0.6; cursor: wait; }
 
 .submit-error {
   margin-top: 1.5rem; padding: 0.85rem 1rem;
-  background: #fdf0ee; border-left: 4px solid var(--error); border-radius: 0 6px 6px 0;
+  background: var(--tint); border-left: 4px solid var(--error); border-radius: 0 6px 6px 0;
 }
 
 .success-box {
-  margin-top: 2rem; padding: 1.5rem;
-  background: #fdf0ee; border: 2px solid var(--vermilion); border-radius: 6px;
+  margin-top: 2rem; padding: 1.75rem;
+  background: var(--tint);
+  border: 1.5px solid var(--salmon);
+  border-radius: 6px;
 }
 .success-box h2 {
-  margin: 0 0 0.5rem; font-size: 1.5rem; color: var(--vermilion);
+  margin: 0 0 0.5rem;
+  font-family: var(--script); font-weight: 400;
+  font-size: 2.6rem; line-height: 1.15;
+  color: var(--salmon);
 }
+.success-box p { color: var(--navy); }
 
-.change-note { margin-top: 1.25rem; color: var(--muted); font-size: 1rem; }
+.change-note { margin-top: 1.25rem; color: var(--muted); font-size: 0.95rem; }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sheet { animation: none; }
+}
 
 @media (max-width: 760px) {
   .submit { width: 100%; }
   .dots {
     background-image:
-      radial-gradient(circle, #000 0 7px, transparent 7.5px),
-      radial-gradient(circle, #000 0 7px, transparent 7.5px);
+      radial-gradient(circle, var(--navy) 0 6.5px, transparent 7px),
+      radial-gradient(circle, var(--navy) 0 6.5px, transparent 7px);
     background-size: 76px 76px;
     background-position: 0 0, 38px 38px;
   }

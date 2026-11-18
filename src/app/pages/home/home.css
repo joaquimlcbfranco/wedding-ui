@@ -1,16 +1,15 @@
 :host {
-  --paper: #f7f8f3;
-  --ink: #181414;
-  --muted: #5a4a48;
-  --blush: #f1a29d;
-  --coral: #ee7d79;
-  --vermilion: #e45237;
+  --navy: #1F354D;
+  --salmon: #E06D60;
+  --cream: #F8F8F2;
+  --muted: #5C6B7A;
+
   --script: 'Citadel Script', 'Pinyon Script', cursive;
   --serif: 'Coldiac', 'Cormorant SC', Georgia, serif;
 
   display: block;
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--cream);
+  color: var(--navy);
   font-family: var(--serif);
   font-size: 1.1rem;
   line-height: 1.6;
@@ -22,120 +21,131 @@ h1 { font-family: var(--script); font-weight: 400; letter-spacing: 0; }
 .wrap { max-width: 1120px; margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem; }
 
 a:focus-visible, button:focus-visible {
-  outline: 3px solid var(--ink);
+  outline: 3px solid var(--navy);
   outline-offset: 3px;
   border-radius: 6px;
 }
 
-/* Polka-dot envelope lining */
-.dots {
-  background-image:
-    radial-gradient(circle, #000 0 9px, transparent 9.5px),
-    radial-gradient(circle, #000 0 9px, transparent 9.5px);
-  background-size: 100px 100px;
-  background-position: 0 0, 50px 50px;
-}
-
-/* Header */
+/* Clean, airy Cream Header */
 .header {
   position: sticky; top: 0; z-index: 20;
-  background: rgba(247, 248, 243, 0.94);
+  background: rgba(248, 248, 242, 0.96);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(24, 20, 20, 0.12);
+  border-bottom: 1px solid rgba(31, 53, 77, 0.08);
 }
-.nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
-.logo { font-family: var(--script); font-size: 2rem; color: var(--vermilion); text-decoration: none; line-height: 1; }
+.nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.logo { font-family: var(--script); font-size: 2.1rem; color: var(--salmon); text-decoration: none; line-height: 1; }
 .nav-cta {
-  background: var(--ink); color: var(--paper); text-decoration: none;
-  padding: 0.4rem 1.3rem; border-radius: 999px;
-  font-weight: 600; letter-spacing: 0.06em; transition: background 0.2s;
+  background: var(--navy); color: var(--cream); text-decoration: none;
+  padding: 0.45rem 1.35rem; border-radius: 999px;
+  font-size: 0.95rem; font-weight: 600; letter-spacing: 0.06em;
+  transition: background 0.2s, transform 0.15s;
 }
-.nav-cta:hover { background: var(--vermilion); }
+.nav-cta:hover { background: var(--salmon); }
 
 /* Buttons */
 .btn {
   display: inline-block; padding: 0.7rem 1.8rem; border-radius: 999px;
-  font-weight: 600; font-size: 1.05rem; letter-spacing: 0.08em; text-decoration: none;
-  transition: background 0.2s, color 0.2s;
+  font-weight: 600; font-size: 1rem; letter-spacing: 0.08em; text-decoration: none;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
-.btn-solid { background: var(--ink); color: var(--paper); }
-.btn-solid:hover { background: var(--vermilion); }
-.btn-outline { border: 2px solid var(--ink); color: var(--ink); }
-.btn-outline:hover { background: var(--ink); color: var(--paper); }
-.btn-small { padding: 0.45rem 1.3rem; font-size: 1rem; }
+.btn-solid { background: var(--navy); color: var(--cream); }
+.btn-solid:hover { background: var(--salmon); }
+.btn-outline { border: 1.5px solid var(--navy); color: var(--navy); }
+.btn-outline:hover { background: var(--navy); color: var(--cream); }
+.btn-small { padding: 0.45rem 1.3rem; font-size: 0.95rem; }
 
-/* Lining: everything sits on the polka dots */
+/* Salmon Envelope Background with Navy Polka Dots */
 .lining {
-  background-color: var(--blush);
-  padding: clamp(1.5rem, 4vw, 2.5rem) 1.5rem clamp(2rem, 5vw, 3.5rem);
+  background-color: var(--salmon);
+  padding: clamp(2rem, 5vw, 3.25rem) 1.5rem clamp(2.5rem, 6vw, 4rem);
+}
+.dots {
+  background-image:
+    radial-gradient(circle, var(--navy) 0 7px, transparent 7.5px),
+    radial-gradient(circle, var(--navy) 0 7px, transparent 7.5px);
+  background-size: 96px 96px;
+  background-position: 0 0, 48px 48px;
 }
 .lining-inner {
   max-width: 940px; margin: 0 auto;
   animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
-/* Names tag */
+/* Main Invite Card */
 .tag {
   position: relative; overflow: hidden;
-  max-width: 640px; margin: 0 auto 1.5rem;
-  padding: 1.5rem clamp(1.5rem, 8vw, 5rem) 1.6rem;
+  max-width: 640px; margin: 0 auto 1.75rem;
+  padding: 2rem clamp(1.5rem, 8vw, 5rem) 2.1rem;
   text-align: center; border-radius: 6px;
-  background: var(--paper);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+  background: var(--cream);
+  box-shadow: 0 14px 32px rgba(31, 53, 77, 0.14);
 }
 .tag > p, .tag > h1 { position: relative; z-index: 1; }
 
-/* Optional peonies: public/images/peony-top.png and peony-bottom.png */
-.peony { position: absolute; pointer-events: none; }
-.peony-top { top: 0; right: 0; width: 110px; }
-.peony-bottom { bottom: 0; left: 0; width: 130px; }
+.peony { position: absolute; pointer-events: none; opacity: 0.85; }
+.peony-top { top: 0; right: 0; width: 115px; }
+.peony-bottom { bottom: 0; left: 0; width: 135px; }
 
-.kicker { font-size: 1.1rem; letter-spacing: 0.12em; }
+.kicker { font-size: 1rem; letter-spacing: 0.16em; color: var(--navy); text-transform: uppercase; }
 .names {
-  margin: 0.1rem 0 0.1rem;
-  font-size: clamp(2.8rem, 8vw, 4.8rem); line-height: 1.15; color: var(--vermilion);
+  margin: 0.2rem 0;
+  font-size: clamp(2.8rem, 8vw, 4.8rem); line-height: 1.15;
+  color: var(--salmon);
 }
-.tag-date { letter-spacing: 0.08em; }
-.countdown { display: block; margin-top: 0.2rem; font-size: 0.95rem; color: var(--muted); }
+.tag-date { letter-spacing: 0.1em; color: var(--navy); font-weight: 600; }
+.countdown { display: block; margin-top: 0.3rem; font-size: 0.9rem; color: var(--salmon); font-weight: 600; }
 
-/* Venue cards */
-.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+/* Info Cards: Crisp Cream + Deep Navy (#1F354D) */
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
 .card {
-  background: var(--paper); border-radius: 6px;
-  padding: 1.5rem 1.75rem 1.75rem;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
-  border-top: 6px solid var(--vermilion);
+  background: var(--cream); border-radius: 6px;
+  padding: 1.75rem 2rem 2rem;
+  box-shadow: 0 14px 32px rgba(31, 53, 77, 0.14);
+  border-top: 4px solid var(--navy);
 }
-.card-title { font-size: 1.15rem; font-weight: 600; letter-spacing: 0.1em; }
+.card-title { font-size: 1.15rem; font-weight: 600; letter-spacing: 0.12em; color: var(--navy); }
+.card-desc {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin: 0.25rem 0 0.5rem;
+  font-style: italic;
+}
 .card-time {
-  font-family: var(--script); font-size: 4.6rem; line-height: 1.05; color: var(--vermilion);
-  margin-top: 0.15rem;
+  font-family: var(--script); font-size: 4.5rem; line-height: 1.05;
+  color: var(--salmon);
+  margin-top: 0.1rem;
 }
-.card-ampm { font-size: 0.95rem; color: var(--muted); letter-spacing: 0.04em; margin-bottom: 1rem; }
-.venue { font-size: 1.3rem; font-weight: 600; line-height: 1.3; }
-.place { color: var(--muted); margin-bottom: 1.1rem; }
-.details { margin: 0 0 1.1rem; padding-left: 1.2rem; }
+.card-ampm { font-size: 0.9rem; color: var(--muted); letter-spacing: 0.04em; margin-bottom: 1.15rem; }
+.venue { font-size: 1.25rem; font-weight: 600; line-height: 1.3; color: var(--navy); }
+.place { color: var(--muted); margin-bottom: 1.25rem; }
+.details { margin: 0 0 1.25rem; padding-left: 1.2rem; color: var(--navy); }
 .details li { margin-bottom: 0.25rem; }
 
 .transfer {
-  max-width: 640px; margin: 1.25rem auto 0; padding: 0.75rem 1.25rem;
-  background: var(--paper); border-radius: 6px; text-align: center; font-style: italic;
+  max-width: 640px; margin: 1.5rem auto 0; padding: 0.85rem 1.25rem;
+  background: var(--cream); border-radius: 6px; text-align: center; font-style: italic;
+  color: var(--navy);
 }
 
-/* RSVP strip */
+/* RSVP strip: Clean Cream + Navy */
 .rsvp-strip {
   display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
-  margin-top: 1.25rem; padding: 1.1rem 1.75rem;
-  background: var(--paper); border-radius: 6px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+  margin-top: 1.5rem; padding: 1.35rem 2rem;
+  background: var(--cream); border-radius: 6px;
+  box-shadow: 0 14px 32px rgba(31, 53, 77, 0.14);
 }
-.rsvp-strip p { letter-spacing: 0.03em; }
-.rsvp-strip strong { display: block; font-size: 1.3rem; letter-spacing: 0.06em; }
+.rsvp-strip p { letter-spacing: 0.03em; color: var(--muted); }
+.rsvp-strip strong { display: block; font-size: 1.25rem; letter-spacing: 0.06em; color: var(--navy); margin-bottom: 0.15rem; }
 
-/* Footer */
-.footer { padding: 1.75rem 1.5rem 2.25rem; text-align: center; }
-.footer-names { font-family: var(--script); font-size: 2.2rem; color: var(--vermilion); line-height: 1.2; }
-.footer-date { color: var(--muted); letter-spacing: 0.08em; }
+/* Clean Cream Footer */
+.footer {
+  padding: 2rem 1.5rem 2.5rem; text-align: center;
+  background: var(--cream);
+  border-top: 1px solid rgba(31, 53, 77, 0.08);
+}
+.footer-names { font-family: var(--script); font-size: 2.2rem; color: var(--salmon); line-height: 1.2; }
+.footer-date { color: var(--muted); letter-spacing: 0.08em; font-size: 0.95rem; }
 
 /* One load moment */
 @keyframes rise {
@@ -156,8 +166,8 @@ a:focus-visible, button:focus-visible {
   .peony-bottom { width: 90px; }
   .dots {
     background-image:
-      radial-gradient(circle, #000 0 7px, transparent 7.5px),
-      radial-gradient(circle, #000 0 7px, transparent 7.5px);
+      radial-gradient(circle, var(--navy) 0 6px, transparent 6.5px),
+      radial-gradient(circle, var(--navy) 0 6px, transparent 6.5px);
     background-size: 76px 76px;
     background-position: 0 0, 38px 38px;
   }
