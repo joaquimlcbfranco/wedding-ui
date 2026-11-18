@@ -1,0 +1,73 @@
+<header class="header">
+  <nav class="nav wrap" aria-label="Main">
+    <a class="logo" href="/">B &amp; J</a>
+    <a class="nav-cta" routerLink="/rsvp">Confirm attendance</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="lining dots">
+    <div class="lining-inner">
+      <div class="tag">
+        <img class="peony peony-top" src="images/peony-top.png" alt="" (error)="hide($event)" />
+        <img class="peony peony-bottom" src="images/peony-bottom.png" alt="" (error)="hide($event)" />
+        <p class="kicker">We're getting married</p>
+        <h1 class="names">{{ names }}</h1>
+        <p class="tag-date">
+          {{ dateLong }}
+          @if (daysLeft > 0) {
+            <span class="countdown">{{ countdown }}</span>
+          }
+        </p>
+      </div>
+
+      <div class="cards">
+        @for (event of events; track event.id) {
+          <article class="card">
+            <p class="card-title">{{ event.title }}</p>
+            @if (event.description) {
+              <p class="card-desc">{{ event.description }}</p>
+            }
+            <p class="card-time">{{ event.time }}</p>
+            <p class="card-ampm">{{ event.timeLabel }}, please arrive on time</p>
+
+            <p class="venue">{{ event.venue }}</p>
+            <p class="place">{{ event.place }}</p>
+
+            @if (event.details.length) {
+              <ul class="details">
+                @for (item of event.details; track item) {
+                  <li>{{ item }}</li>
+                }
+              </ul>
+            }
+
+            <a class="btn btn-outline btn-small" [href]="mapLink(event.mapQuery)" target="_blank" rel="noopener">
+              Open in Maps
+            </a>
+          </article>
+        }
+      </div>
+
+      @if (travelNote) {
+        <p class="transfer">{{ travelNote }}</p>
+      }
+
+      <div class="rsvp-strip">
+        <p>
+          <strong>Will you join us?</strong>
+          Let us know if you can make it.
+          @if (rsvpDeadline) {
+            Please reply by {{ rsvpDeadline }}.
+          }
+        </p>
+        <a class="btn btn-solid" routerLink="/rsvp">Confirm attendance</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p class="footer-names">{{ names }}</p>
+  <p class="footer-date">{{ dateLong }}</p>
+</footer>

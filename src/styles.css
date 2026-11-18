@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'Citadel Script';
+  src: url('/fonts/CitadelScript.woff2') format('woff2'),
+  url('/fonts/CitadelScript.otf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Coldiac';
+  src: url('/fonts/Coldiac.woff2') format('woff2'),
+  url('/fonts/Coldiac.otf') format('opentype');
+  font-display: swap;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body { margin: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
