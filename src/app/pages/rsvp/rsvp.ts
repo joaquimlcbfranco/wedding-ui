@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { RsvpService } from './rsvp.service'; // Adjust path if needed
 
 type Attendance = 'both' | 'ceremony' | 'reception' | 'none';
 
@@ -25,6 +26,7 @@ interface AttendanceOption {
 })
 export class Rsvp {
   private readonly fb = inject(NonNullableFormBuilder);
+  private readonly rsvpService = inject(RsvpService);
 
   // ---- Edit these ----
   readonly names = 'Blandina & Joaquim';
@@ -56,6 +58,9 @@ export class Rsvp {
   // --------------------
 
   readonly submitted = signal(false);
+  readonly submitting = signal(false);
+  readonly submitSuccess = signal(false);
+  readonly submitError = signal<string | null>(null);
 
   private readonly nameValidators = [Validators.required, Validators.pattern(/\S/)];
 
@@ -104,7 +109,6 @@ export class Rsvp {
     this.syncOthers(next);
   }
 
-  // The first person is the main name, so we need one extra field for everyone else.
   private syncOthers(total: number): void {
     const needed = total - 1;
 
@@ -116,16 +120,43 @@ export class Rsvp {
     }
   }
 
-  submit(): void {
+  async submit(): Promise<void> {
     this.submitted.set(true);
+    this.submitError.set(null);
 
-    if (this.form.invalid) {
+    if (this.form.invalid || this.submitting()) {
       this.form.markAllAsTouched();
       return;
     }
 
-    // For now the form does nothing when it is valid.
-    // Later: send the email to both of you with this.form.getRawValue()
-    // (ignore `dietary` when this.declining is true).
+    this.submitting.set(true);
+
+    try {
+      const raw = this.form.getRawValue();
+
+      await this.rsvpService.submitRsvp({
+        name: raw.name.trim(),
+        attendance: raw.attendance!,
+        guests: raw.guests,
+        others: raw.others.map((person) => person.trim()),
+        dietary: this.declining ? null : raw.dietary.trim() || null,
+      });
+
+      this.submitSuccess.set(true);
+    } catch {
+      this.submitError.set(
+        'We could not save your reply right now—please check your connection and try again.'
+      );
+    } finally {
+      this.submitting.set(false);
+    }
+  }
+
+  resetForm(): void {
+    this.form.reset({ name: '', guests: 1, attendance: null, dietary: '' });
+    this.others.clear();
+    this.submitted.set(false);
+    this.submitSuccess.set(false);
+    this.submitError.set(null);
   }
 }

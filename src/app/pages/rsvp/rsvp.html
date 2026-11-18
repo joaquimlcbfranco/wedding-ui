@@ -8,131 +8,155 @@
       reply for the whole family.
     </p>
 
-    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
-      <!-- Your name -->
-      <div class="field">
-        <label class="label" for="name">Your name</label>
-        <p class="hint" id="name-hint">
-          Type your own name here. If you are replying for others, you will add them below.
+    @if (submitSuccess()) {
+      <div class="success-box" role="status" aria-live="polite">
+        <h2>Thank you, {{ name.value }}!</h2>
+        <p>
+          @if (declining) {
+            We have saved your reply and will miss having you there.
+          } @else {
+            Your RSVP for {{ guests.value }} {{ guests.value === 1 ? 'person' : 'people' }} has been recorded. We cannot wait to celebrate with you!
+          }
         </p>
-        <input
-          id="name"
-          type="text"
-          formControlName="name"
-          autocomplete="name"
-          aria-describedby="name-hint name-error"
-          [attr.aria-invalid]="showError(name)"
-        />
-        @if (showError(name)) {
-          <p class="error" id="name-error" role="alert">Please enter your name so we know who is replying.</p>
-        }
+        <button type="button" class="submit" (click)="resetForm()">
+          Submit another reply
+        </button>
       </div>
-
-      <!-- Where -->
-      <fieldset class="field">
-        <legend class="label">Will you be joining us?</legend>
-
-        <div class="options">
-          @for (option of options; track option.value) {
-            <label class="option">
-              <input type="radio" formControlName="attendance" [value]="option.value" />
-              <span class="mark" aria-hidden="true"></span>
-              <span class="option-body">
-                <span class="option-title">{{ option.title }}</span>
-                <span class="option-detail">{{ option.detail }}</span>
-              </span>
-            </label>
+    } @else {
+      <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+        <!-- Your name -->
+        <div class="field">
+          <label class="label" for="name">Your name</label>
+          <p class="hint" id="name-hint">
+            Type your own name here. If you are replying for others, you will add them below.
+          </p>
+          <input
+            id="name"
+            type="text"
+            formControlName="name"
+            autocomplete="name"
+            aria-describedby="name-hint name-error"
+            [attr.aria-invalid]="showError(name)"
+          />
+          @if (showError(name)) {
+            <p class="error" id="name-error" role="alert">Please enter your name so we know who is replying.</p>
           }
         </div>
 
-        @if (showError(attendance)) {
-          <p class="error" role="alert">Please choose one of the options above.</p>
-        }
-      </fieldset>
+        <!-- Where -->
+        <fieldset class="field">
+          <legend class="label">Will you be joining us?</legend>
 
-      <!-- Number of people -->
-      <div class="field" role="group" aria-labelledby="guests-label">
-        <span class="label" id="guests-label">{{ peopleQuestion }}</span>
-
-        <div class="stepper-row">
-          <div class="stepper">
-            <button
-              type="button"
-              class="step"
-              aria-label="One person fewer"
-              [disabled]="guests.value <= minGuests"
-              (click)="changeGuests(-1)"
-            >
-              −
-            </button>
-            <output class="count" aria-live="polite">{{ guests.value }}</output>
-            <button
-              type="button"
-              class="step"
-              aria-label="One person more"
-              [disabled]="guests.value >= maxGuests"
-              (click)="changeGuests(1)"
-            >
-              +
-            </button>
-          </div>
-          <span class="count-label">{{ guests.value === 1 ? 'person' : 'people' }}</span>
-        </div>
-
-        <p class="note">
-          Please count only the people named on your invitation, yourself included. Our invitations are for the
-          guests we have invited, so we are not able to add extra people.
-        </p>
-
-        @if (others.length) {
-          <div class="people">
-            <p class="hint">Please add the name of everyone else you are replying for.</p>
-
-            @for (control of others.controls; track $index; let i = $index) {
-              <div class="person">
-                <label class="sublabel" [for]="'person-' + (i + 2)">Person {{ i + 2 }}</label>
-                <input
-                  [id]="'person-' + (i + 2)"
-                  type="text"
-                  [formControl]="control"
-                  autocomplete="off"
-                  [attr.aria-invalid]="showError(control)"
-                />
-                @if (showError(control)) {
-                  <p class="error" role="alert">Please enter this person's name.</p>
-                }
-              </div>
+          <div class="options">
+            @for (option of options; track option.value) {
+              <label class="option">
+                <input type="radio" formControlName="attendance" [value]="option.value" />
+                <span class="mark" aria-hidden="true"></span>
+                <span class="option-body">
+                  <span class="option-title">{{ option.title }}</span>
+                  <span class="option-detail">{{ option.detail }}</span>
+                </span>
+              </label>
             }
           </div>
-        }
-      </div>
 
-      <!-- Dietary needs -->
-      @if (!declining) {
-        <div class="field">
-          <label class="label" for="dietary">
-            Dietary needs or allergies <span class="optional">(optional)</span>
-          </label>
-          <p class="hint" id="dietary-hint">
-            Tell us about anything we should know, and who it applies to.
+          @if (showError(attendance)) {
+            <p class="error" role="alert">Please choose one of the options above.</p>
+          }
+        </fieldset>
+
+        <!-- Number of people -->
+        <div class="field" role="group" aria-labelledby="guests-label">
+          <span class="label" id="guests-label">{{ peopleQuestion }}</span>
+
+          <div class="stepper-row">
+            <div class="stepper">
+              <button
+                type="button"
+                class="step"
+                aria-label="One person fewer"
+                [disabled]="guests.value <= minGuests"
+                (click)="changeGuests(-1)"
+              >
+                −
+              </button>
+              <output class="count" aria-live="polite">{{ guests.value }}</output>
+              <button
+                type="button"
+                class="step"
+                aria-label="One person more"
+                [disabled]="guests.value >= maxGuests"
+                (click)="changeGuests(1)"
+              >
+                +
+              </button>
+            </div>
+            <span class="count-label">{{ guests.value === 1 ? 'person' : 'people' }}</span>
+          </div>
+
+          <p class="note">
+            Please count only the people named on your invitation, yourself included. Our invitations are for the
+            guests we have invited, so we are not able to add extra people.
           </p>
-          <textarea
-            id="dietary"
-            formControlName="dietary"
-            rows="3"
-            maxlength="500"
-            aria-describedby="dietary-hint"
-          ></textarea>
+
+          @if (others.length) {
+            <div class="people">
+              <p class="hint">Please add the name of everyone else you are replying for.</p>
+
+              @for (control of others.controls; track $index; let i = $index) {
+                <div class="person">
+                  <label class="sublabel" [for]="'person-' + (i + 2)">Person {{ i + 2 }}</label>
+                  <input
+                    [id]="'person-' + (i + 2)"
+                    type="text"
+                    [formControl]="control"
+                    autocomplete="off"
+                    [attr.aria-invalid]="showError(control)"
+                  />
+                  @if (showError(control)) {
+                    <p class="error" role="alert">Please enter this person's name.</p>
+                  }
+                </div>
+              }
+            </div>
+          }
         </div>
-      }
 
-      <button class="submit" type="submit">
-        {{ declining ? 'Send our reply' : 'Confirm attendance' }}
-      </button>
+        <!-- Dietary needs -->
+        @if (!declining) {
+          <div class="field">
+            <label class="label" for="dietary">
+              Dietary needs or allergies <span class="optional">(optional)</span>
+            </label>
+            <p class="hint" id="dietary-hint">
+              Tell us about anything we should know, and who it applies to.
+            </p>
+            <textarea
+              id="dietary"
+              formControlName="dietary"
+              rows="3"
+              maxlength="500"
+              aria-describedby="dietary-hint"
+            ></textarea>
+          </div>
+        }
 
-      <p class="change-note">
-        Need to change your answer? Just submit this form again, or contact us directly.
-      </p>
-    </form>
+        @if (submitError()) {
+          <p class="error submit-error" role="alert">{{ submitError() }}</p>
+        }
+
+        <button class="submit" type="submit" [disabled]="submitting()">
+          @if (submitting()) {
+            Saving your reply...
+          } @else {
+            {{ declining ? 'Send our reply' : 'Confirm attendance' }}
+          }
+        </button>
+
+        <p class="change-note">
+          Need to change your answer? Just submit this form again, or contact us directly.
+        </p>
+      </form>
+    }
   </div>
 </main>
