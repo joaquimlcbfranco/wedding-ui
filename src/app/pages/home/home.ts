@@ -31,7 +31,7 @@ export class Home {
     {
       id: 'ceremony',
       title: 'Ceremony',
-      description: '', // e.g. 'Wedding mass at the church'
+      description: 'Church celebration followed by a small snack',
       time: '13:00',
       timeLabel: '1:00 PM',
       venue: 'Igreja de Nossa Senhora da Saúde',
@@ -42,7 +42,7 @@ export class Home {
     {
       id: 'reception',
       title: 'Reception',
-      description: 'Cocktail, dinner and open bar',
+      description: 'Cocktail, dinner and party',
       time: '16:00',
       timeLabel: '4:00 PM',
       venue: 'Herdade de Algeruz',
