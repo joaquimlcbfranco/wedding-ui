@@ -2,7 +2,11 @@ name: Deploy Angular App to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ] # Change to 'master' if your main branch is master
+
+# 1. Grant GitHub Actions permission to write back to the repository
+permissions:
+  contents: write
 
 jobs:
   build-and-deploy:
@@ -11,7 +15,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Set up Node.js (v22 required for Angular 19+)
         uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -28,5 +32,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist/wedding-frontend/browser
-        env:
-          ACTIONS_DEPLOY_KEY: ${{ secrets.GITHUB_TOKEN }}
