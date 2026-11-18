@@ -30,7 +30,7 @@ export class Home {
   readonly events: WeddingEvent[] = [
     {
       id: 'ceremony',
-      title: 'Ceremony',
+      title: 'Religious Ceremony',
       description: 'Church celebration followed by a small snack',
       time: '13:00',
       timeLabel: '1:00 PM',
